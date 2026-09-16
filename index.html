@@ -34,6 +34,26 @@
   }
   header.page-head{
     margin-bottom:40px;
+    position:relative;
+  }
+  .doc-meta{
+    position:absolute;
+    top:0;
+    right:0;
+    text-align:right;
+  }
+  .doc-meta p{
+    font-size:12px;
+    color:var(--ink-muted);
+    margin:0 0 2px;
+  }
+  .author-hl{
+    background:var(--a-jsh-soft);
+    color:var(--a-jsh);
+    font-weight:700;
+    padding:2px 8px;
+    border-radius:6px;
+    display:inline-block;
   }
   .eyebrow{
     font-size:14px;
@@ -435,10 +455,17 @@
     padding-top:20px;
   }
 
+  .table-scroll{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .table-scroll .budget-table{min-width:640px;}
+
   @media (max-width:760px){
     .hero-grid, .chart-grid{grid-template-columns:1fr;}
     .wrap{padding:40px 20px 64px;}
     h1{font-size:26px;}
+    .section-head .note.hide-mobile{display:none;}
+    .doc-meta{position:static;margin-bottom:12px;}
+    .budget-table thead th{font-size:12px;padding:9px 6px;}
+    .budget-table td{font-size:13px;padding:10px 8px;}
   }
 </style>
 </head>
@@ -460,6 +487,10 @@
 <div class="wrap">
 
   <header class="page-head">
+    <div class="doc-meta">
+      <p><span class="author-hl">작성자: 앵커김군</span></p>
+      <p>작성기준일: 2026. 9. 16. 10:13</p>
+    </div>
     <p class="eyebrow">기안자 업무 통합 분석 리포트 · 문서대장 2025.08–2026.09 · 지출결의 2026.03–2026.09</p>
     <h1>ANCHOR사업단 지산학협력본부 업무 현황표</h1>
     <div class="legend-row">
@@ -470,7 +501,7 @@
 
   <section>
     <div class="section-head">
-      <h2>4과제 · 11과제 핵심지표·자율지표 현황</h2>
+      <h2>핵심·자율지표 지표 현황</h2>
       <span class="note">ANCHOR 사업단 대시보드 연동 · 2026.8.31 기준</span>
     </div>
     <div class="chart-grid">
@@ -503,6 +534,7 @@
       <span class="note">2026년 9월 1주차 기준</span>
     </div>
     <div class="chart-card full">
+      <div class="table-scroll">
       <table class="data-table budget-table">
         <thead>
           <tr>
@@ -517,13 +549,14 @@
         </thead>
         <tbody id="budgetTable"></tbody>
       </table>
+      </div>
     </div>
   </section>
 
   <section>
     <div class="section-head">
       <h2>업무 및 휴가·출장 계획</h2>
-      <span class="note">공문(ANCHOR/RISE 문서대장+지산학협력본부 공문) + 지출결의 + 휴가 현황 · 근로기간 2026.9.16 기준</span>
+      <span class="note hide-mobile">공문(ANCHOR/RISE 문서대장+지산학협력본부 공문) + 지출결의 + 휴가 현황 · 근로기간 2026.9.16 기준</span>
     </div>
     <div class="hero-grid">
       <div class="person-card">
@@ -568,7 +601,7 @@
   <section>
     <div class="section-head">
       <h2>과제별 업무 비중</h2>
-      <span class="note">ANCHOR/RISE 문서대장 + 지산학협력본부 공문 통합 · 1차 7과제·2차 11과제는 "지역 현안 문제 해결"로 통합</span>
+      <span class="note hide-mobile">ANCHOR/RISE 문서대장 + 지산학협력본부 공문 통합 · 1차 7과제·2차 11과제는 "지역 현안 문제 해결"로 통합</span>
     </div>
     <div class="chart-grid">
       <div class="chart-card">
@@ -669,7 +702,7 @@
   <section>
     <div class="section-head">
       <h2>생산 · 접수 비교</h2>
-      <span class="note">등록구분 기준 · ANCHOR/RISE 문서대장 + 지산학협력본부 공문 통합</span>
+      <span class="note hide-mobile">등록구분 기준 · ANCHOR/RISE 문서대장 + 지산학협력본부 공문 통합</span>
     </div>
     <div class="chart-card">
       <div class="chart-box" style="height:200px;">
@@ -694,7 +727,7 @@
   <section>
     <div class="section-head">
       <h2>부서별 문서 건수 현황</h2>
-      <span class="note">문서상 기안부서 표기 기준 · 두 사람 모두 소속은 ANCHOR사업운영센터</span>
+      <span class="note hide-mobile">문서상 기안부서 표기 기준 · 두 사람 모두 소속은 ANCHOR사업운영센터</span>
     </div>
     <div class="chart-card full">
       <table class="data-table budget-table">
@@ -715,7 +748,7 @@
   <section>
     <div class="section-head">
       <h2>월별 업무 세부 현황</h2>
-      <span class="note">문서기안(생산)·문서접수·지출결의 건수 · 2026.03 기준 1차/2차년도 구분</span>
+      <span class="note hide-mobile">문서기안(생산)·문서접수·지출결의 건수 · 2026.03 기준 1차/2차년도 구분</span>
     </div>
     <div class="legend-row" style="margin-top:0; margin-bottom:16px; gap:16px;">
       <span class="legend-chip" style="font-size:12px;"><span class="dot" style="background:#0B4D33;"></span>문서기안(생산)</span>
