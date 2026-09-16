@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>기안자별 업무 통합 비교 리포트</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root{
+    --bg:#F4F7F4;
+    --surface:#FFFFFF;
+    --ink:#16241C;
+    --ink-sub:#4C5B50;
+    --ink-muted:#7E8C82;
+    --line:#DCE6DE;
+    --a-jsm:#0B4D33;
+    --a-jsm-soft:#E1EFE6;
+    --a-jsh:#2E8B57;
+    --a-jsh-soft:#E7F3EB;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height:1.6;
+  }
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:64px 32px 96px;
+  }
+  header.page-head{
+    margin-bottom:40px;
+  }
+  .eyebrow{
+    font-size:14px;
+    color:var(--ink-muted);
+    margin:0 0 12px;
+  }
+  h1{
+    font-size:32px;
+    font-weight:700;
+    margin:0 0 16px;
+    letter-spacing:-0.02em;
+  }
+  .lede{
+    font-size:16px;
+    color:var(--ink-sub);
+    max-width:660px;
+    margin:0;
+  }
+  .legend-row{
+    display:flex;
+    gap:24px;
+    margin-top:28px;
+  }
+  .legend-chip{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:14px;
+    color:var(--ink-sub);
+  }
+  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .dot.jsm{background:var(--a-jsm);}
+  .dot.jsh{background:var(--a-jsh);}
+  .avatar{flex-shrink:0;display:block;}
+  .avatar.sm{width:20px;height:20px;}
+  .avatar.lg{width:40px;height:40px;}
+
+  section{margin-bottom:64px;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:20px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:12px;
+  }
+  .section-head h2{
+    font-size:19px;
+    font-weight:700;
+    margin:0;
+  }
+  .section-head .note{
+    font-size:13px;
+    color:var(--ink-muted);
+    flex-shrink:0;
+    margin-left:16px;
+  }
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  .person-card{
+    background:var(--surface);
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    padding:28px 28px 24px;
+  }
+  .person-card .name-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:4px;
+  }
+  .person-card .name-row .dot{width:12px;height:12px;}
+  .person-card .name{font-size:17px;font-weight:700;}
+  .emp-info{font-size:13.5px;font-weight:700;color:var(--ink-sub);margin:2px 0 16px;}
+  .card-h3-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:4px;
+  }
+  .card-h3-row h3{margin:0;}
+  .big-total{
+    font-size:44px;
+    font-weight:700;
+    margin:0 0 4px;
+    letter-spacing:-0.02em;
+  }
+  .big-total .unit{font-size:16px;font-weight:500;color:var(--ink-sub);margin-left:4px;}
+  .split-row{
+    display:flex;
+    gap:12px;
+    margin-top:20px;
+  }
+  .split-item{
+    flex:1;
+    background:var(--bg);
+    border-radius:10px;
+    padding:14px 16px;
+  }
+  .split-item .lbl{font-size:12px;color:var(--ink-muted);margin-bottom:4px;}
+  .split-item .val{font-size:19px;font-weight:700;}
+
+  .leave-block{margin-top:20px;padding-top:16px;border-top:1px solid var(--line);}
+  .leave-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+  .leave-head .leave-title{font-size:13px;font-weight:700;color:var(--ink);}
+  .leave-remain{font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px;}
+  .leave-bar-track{width:100%;height:10px;background:var(--bg);border-radius:6px;overflow:hidden;}
+  .leave-bar-fill{height:100%;border-radius:6px;}
+  .leave-sub{font-size:12px;color:var(--ink-muted);margin-top:6px;}
+  .trip-note{margin-top:14px;font-size:12px;color:var(--ink-muted);}
+
+  .chart-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  .chart-card{
+    background:var(--surface);
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    padding:24px 24px 12px;
+  }
+  .chart-card.full{grid-column:1 / -1;}
+  .chart-card h3{
+    font-size:15px;
+    font-weight:700;
+    margin:0 0 4px;
+  }
+  .chart-card .sub{
+    font-size:13px;
+    color:var(--ink-muted);
+    margin:0 0 16px;
+  }
+  .chart-box{position:relative;width:100%;}
+
+  .task-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:4px;
+  }
+  .task-row{
+    display:flex;
+    align-items:center;
+    gap:12px;
+  }
+  .task-row .task-label{
+    width:130px;
+    flex-shrink:0;
+    font-size:13px;
+    color:var(--ink-sub);
+  }
+  .task-row .bar-track{
+    flex:1;
+    height:10px;
+    background:var(--bg);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .task-row .bar-fill{height:100%;border-radius:6px;}
+  .task-row .task-val{
+    width:36px;
+    text-align:right;
+    font-size:13px;
+    font-weight:700;
+    flex-shrink:0;
+  }
+
+  .program-card{
+    background:var(--surface);
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    padding:24px 24px 8px;
+  }
+  .program-card h3{
+    font-size:15px;
+    font-weight:700;
+    margin:0 0 4px;
+  }
+  .program-card .sub{
+    font-size:13px;
+    color:var(--ink-muted);
+    margin:0 0 16px;
+  }
+  .program-item{
+    padding:14px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .program-item:last-child{border-bottom:none;}
+  .program-item .p-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:8px;
+  }
+  .program-item .p-name-wrap{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .period-tag{
+    display:inline-block;
+    font-size:10.5px;
+    font-weight:700;
+    padding:2px 7px;
+    border-radius:5px;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .period-tag.p1{background:#EDEFEA;color:var(--ink-sub);}
+  .period-tag.p2{background:#E1EFE6;color:#0B4D33;}
+  .period-tag.p12{background:#F3F0DC;color:#6B5F1F;}
+  .program-item .p-date{
+    font-size:11.5px;
+    color:var(--ink-muted);
+    flex-shrink:0;
+    white-space:nowrap;
+  }
+  .program-item .p-name{
+    font-size:14px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .program-item .p-count{
+    font-size:12px;
+    font-weight:700;
+    flex-shrink:0;
+    white-space:nowrap;
+  }
+  .program-item .p-desc{
+    font-size:13px;
+    color:var(--ink-sub);
+    margin:4px 0 0;
+  }
+
+  .data-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13.5px;
+  }
+  .data-table th{
+    text-align:left;
+    font-weight:700;
+    color:var(--ink-sub);
+    font-size:12px;
+    padding:0 10px 10px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .data-table td{
+    padding:12px 10px 12px 0;
+    border-bottom:1px solid var(--line);
+    color:var(--ink-sub);
+    vertical-align:middle;
+  }
+  .data-table tr:last-child td{border-bottom:none;}
+  .data-table td.strong{font-weight:700;color:var(--ink);}
+  .data-table tr.highlight td{background:var(--hl-bg);}
+  .data-table .name-cell{display:flex;align-items:center;gap:8px;}
+  .kpi-badge{
+    display:inline-block;
+    font-size:10.5px;
+    font-weight:700;
+    padding:2px 7px;
+    border-radius:5px;
+    white-space:nowrap;
+  }
+  .kpi-badge.core{background:var(--a-jsm-soft);color:var(--a-jsm);}
+  .kpi-badge.auto{background:#EEF2E4;color:#5B6B2E;}
+  .rate-cell{display:flex;align-items:center;gap:5px;}
+  .rate-bar-track{
+    width:30px;
+    height:7px;
+    background:var(--bg);
+    border-radius:4px;
+    overflow:hidden;
+    flex-shrink:0;
+  }
+  .rate-bar-fill{height:100%;border-radius:4px;}
+  .rate-pct{font-size:12px;font-weight:700;flex-shrink:0;width:26px;}
+  .kpi-final{font-size:11px;color:var(--ink-muted);margin-top:2px;}
+  .data-table.kpi-table td{vertical-align:top;}
+  .kpi-name-wrap{min-height:44px;display:flex;align-items:center;}
+  .kpi-rate-wrap{min-height:40px;}
+  .stars{letter-spacing:1px;white-space:nowrap;}
+  .data-table .prog-name{font-weight:700;color:var(--ink);font-size:13.5px;}
+  .data-table .prog-date{display:block;font-size:11.5px;color:var(--ink-muted);font-weight:400;margin-top:2px;}
+  .data-table.kpi-table{table-layout:fixed;}
+  .data-table.prog-table{table-layout:fixed;}
+  .budget-table{table-layout:fixed;}
+  .budget-table thead th{
+    background:var(--a-jsm);
+    color:#fff;
+    border-bottom:none;
+    font-size:11.5px;
+    text-align:center;
+    padding:10px 6px;
+  }
+  .budget-table td{
+    text-align:right;
+    font-size:12.5px;
+    padding:9px 8px;
+  }
+  .budget-table td:first-child{text-align:left;font-weight:600;color:var(--ink);}
+  .budget-item-wrap{min-height:34px;display:flex;align-items:center;}
+  .budget-table tr.total td{
+    background:var(--a-jsm);
+    color:#fff;
+    font-weight:700;
+    border-bottom:none;
+  }
+  .budget-table .dash{color:var(--ink-muted);}
+  .prog-row-name{min-height:70px;display:flex;flex-direction:column;justify-content:center;}
+  .prog-row-kpi{min-height:70px;display:flex;flex-direction:column;justify-content:center;}
+  .mark{font-size:15px;text-align:center;display:block;}
+  .mark.off{color:var(--line);}
+
+  .insight-box{
+    background:var(--surface);
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    padding:28px;
+  }
+  .insight-box ul{
+    margin:0;
+    padding-left:20px;
+  }
+  .insight-box li{
+    font-size:14.5px;
+    color:var(--ink-sub);
+    margin-bottom:10px;
+  }
+  .insight-box li:last-child{margin-bottom:0;}
+  .insight-box b{color:var(--ink);font-weight:700;}
+
+  .gate-box{
+    background:var(--surface);
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    padding:32px 28px;
+    text-align:center;
+  }
+  .gate-box .gate-icon{
+    font-size:24px;
+    color:var(--ink-muted);
+    margin-bottom:12px;
+  }
+  .gate-box p{
+    font-size:14px;
+    color:var(--ink-sub);
+    margin:0 0 16px;
+  }
+  .gate-row{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    max-width:280px;
+    margin:0 auto;
+  }
+  .gate-row input{
+    flex:1;
+    height:36px;
+    border-radius:var(--radius);
+    border:0.5px solid var(--line);
+    padding:0 12px;
+    font-size:14px;
+    background:var(--bg);
+    color:var(--ink);
+  }
+  .gate-row button{
+    height:36px;
+    padding:0 16px;
+    border-radius:var(--radius);
+    border:0.5px solid var(--a-jsm);
+    background:var(--a-jsm);
+    color:#fff;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    flex-shrink:0;
+  }
+  .gate-row button:hover{opacity:0.9;}
+  .gate-error{
+    font-size:12.5px;
+    color:#B23A3A;
+    margin-top:10px;
+    min-height:16px;
+  }
+
+  footer{
+    margin-top:48px;
+    font-size:12px;
+    color:var(--ink-muted);
+    border-top:1px solid var(--line);
+    padding-top:20px;
+  }
+
+  @media (max-width:760px){
+    .hero-grid, .chart-grid{grid-template-columns:1fr;}
+    .wrap{padding:40px 20px 64px;}
+    h1{font-size:26px;}
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute;" aria-hidden="true">
+  <defs>
+    <symbol id="avatar-male" viewBox="0 0 40 40">
+      <path d="M12 15c0-6 3.6-10 8-10s8 4 8 10l0-3c0 0-3.5-3-8-3s-8 3-8 3z" fill="var(--a-jsh)"/>
+      <circle cx="20" cy="16" r="7.5" fill="var(--a-jsh-soft)"/>
+      <path d="M5 39c0-8.3 6.7-13.5 15-13.5s15 5.2 15 13.5z" fill="var(--a-jsh)"/>
+    </symbol>
+    <symbol id="avatar-female" viewBox="0 0 40 40">
+      <path d="M9.5 17c0-8.3 4.7-14 10.5-14s10.5 5.7 10.5 14c0 3-0.8 5.8-2.2 8.1-0.3-1.6-0.5-4.3-0.5-8.1 0 0-3 3.2-7.8 3.2s-7.8-3.2-7.8-3.2c0 3.8-0.2 6.5-0.5 8.1-1.4-2.3-2.2-5.1-2.2-8.1z" fill="var(--a-jsm)"/>
+      <circle cx="20" cy="16" r="7.5" fill="var(--a-jsm-soft)"/>
+      <path d="M5 39c0-8.3 6.7-13.5 15-13.5s15 5.2 15 13.5z" fill="var(--a-jsm)"/>
+    </symbol>
+  </defs>
+</svg>
+<div class="wrap">
+
+  <header class="page-head">
+    <p class="eyebrow">기안자 업무 통합 분석 리포트 · 문서대장 2025.08–2026.09 · 지출결의 2026.03–2026.09</p>
+    <h1>ANCHOR사업단 지산학협력본부 업무 현황표</h1>
+    <div class="legend-row">
+      <span class="legend-chip"><svg class="avatar sm"><use href="#avatar-male"></use></svg>주상하 · ANCHOR사업운영센터 연구원</span>
+      <span class="legend-chip"><svg class="avatar sm"><use href="#avatar-female"></use></svg>주수민 · ANCHOR사업운영센터 연구원</span>
+    </div>
+  </header>
+
+  <section>
+    <div class="section-head">
+      <h2>4과제 · 11과제 핵심지표·자율지표 현황</h2>
+      <span class="note">ANCHOR 사업단 대시보드 연동 · 2026.8.31 기준</span>
+    </div>
+    <div class="chart-grid">
+      <div class="program-card">
+        <div class="card-h3-row"><svg class="avatar sm"><use href="#avatar-male"></use></svg><h3>4과제 · 산학협력 생태계 활성화</h3></div>
+        <p class="sub">주상하 담당 프로그램 연관 과제</p>
+        <table class="data-table kpi-table">
+          <thead>
+            <tr><th style="width:44px;">구분</th><th style="width:38%;">지표명</th><th style="width:18%;">목표</th><th style="width:24%;">현재(8월말)</th><th style="width:70px;">달성률</th></tr>
+          </thead>
+          <tbody id="kpiTableT4"></tbody>
+        </table>
+      </div>
+      <div class="program-card">
+        <div class="card-h3-row"><svg class="avatar sm"><use href="#avatar-female"></use></svg><h3>11과제 · 지역 현안 문제 해결</h3></div>
+        <p class="sub">주수민 담당 프로그램 연관 과제</p>
+        <table class="data-table kpi-table">
+          <thead>
+            <tr><th style="width:44px;">구분</th><th style="width:38%;">지표명</th><th style="width:18%;">목표</th><th style="width:24%;">현재(8월말)</th><th style="width:70px;">달성률</th></tr>
+          </thead>
+          <tbody id="kpiTableT11"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>사업비 집행 현황</h2>
+      <span class="note">2026년 9월 1주차 기준</span>
+    </div>
+    <div class="chart-card full">
+      <table class="data-table budget-table">
+        <thead>
+          <tr>
+            <th style="width:24%;">사업비 항목</th>
+            <th style="width:10%;">예산(원)(A)</th>
+            <th style="width:14%;">집행 총액(원)<br>(B = C + D)</th>
+            <th style="width:8%;">집행률(%)</th>
+            <th style="width:14%;">기 집행액(원)(C)</th>
+            <th style="width:12%;">집행액(원)(D)</th>
+            <th style="width:18%;">잔액(원)(A - B)</th>
+          </tr>
+        </thead>
+        <tbody id="budgetTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>업무 및 휴가·출장 계획</h2>
+      <span class="note">공문(ANCHOR/RISE 문서대장+지산학협력본부 공문) + 지출결의 + 휴가 현황 · 근로기간 2026.9.16 기준</span>
+    </div>
+    <div class="hero-grid">
+      <div class="person-card">
+        <div class="name-row"><svg class="avatar lg"><use href="#avatar-male"></use></svg><span class="name">주상하</span></div>
+        <p class="emp-info">임용일: 2025. 10. 1. · 근로기간: 0년 11개월</p>
+        <p class="big-total">191<span class="unit">건 총 업무량</span></p>
+        <div class="split-row">
+          <div class="split-item"><div class="lbl">공문</div><div class="val">170건</div></div>
+          <div class="split-item"><div class="lbl">지출결의</div><div class="val">21건</div></div>
+        </div>
+        <div class="leave-block">
+          <div class="leave-head">
+            <span class="leave-title">휴가 사용 현황</span>
+            <span class="leave-remain" style="background:var(--a-jsh-soft);color:var(--a-jsh);">잔여 2일</span>
+          </div>
+          <div class="leave-bar-track"><div class="leave-bar-fill" style="width:81.8%;background:var(--a-jsh);"></div></div>
+          <div class="leave-sub">사용 9일 / 총 11일 (81.8%)</div>
+        </div>
+        <p class="trip-note">출장 계획: 별도 자료 업로드 시 반영 가능</p>
+      </div>
+      <div class="person-card">
+        <div class="name-row"><svg class="avatar lg"><use href="#avatar-female"></use></svg><span class="name">주수민</span></div>
+        <p class="emp-info">임용일: 2025. 8. 1. · 근로기간: 1년 1개월</p>
+        <p class="big-total">236<span class="unit">건 총 업무량</span></p>
+        <div class="split-row">
+          <div class="split-item"><div class="lbl">공문</div><div class="val">213건</div></div>
+          <div class="split-item"><div class="lbl">지출결의</div><div class="val">23건</div></div>
+        </div>
+        <div class="leave-block">
+          <div class="leave-head">
+            <span class="leave-title">휴가 사용 현황</span>
+            <span class="leave-remain" style="background:var(--a-jsm-soft);color:var(--a-jsm);">잔여 14일</span>
+          </div>
+          <div class="leave-bar-track"><div class="leave-bar-fill" style="width:6.7%;background:var(--a-jsm);"></div></div>
+          <div class="leave-sub">사용 1일 / 총 15일 (6.7%)</div>
+        </div>
+        <p class="trip-note">출장 계획: 별도 자료 업로드 시 반영 가능</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>과제별 업무 비중</h2>
+      <span class="note">ANCHOR/RISE 문서대장 + 지산학협력본부 공문 통합 · 1차 7과제·2차 11과제는 "지역 현안 문제 해결"로 통합</span>
+    </div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="card-h3-row"><svg class="avatar sm"><use href="#avatar-male"></use></svg><h3>주상하</h3></div>
+        <p class="sub">산학협력 생태계 활성화 업무에 압도적으로 편중</p>
+        <div class="task-list" id="taskListJsh"></div>
+      </div>
+      <div class="chart-card">
+        <div class="card-h3-row"><svg class="avatar sm"><use href="#avatar-female"></use></svg><h3>주수민</h3></div>
+        <p class="sub">지역 현안 문제 해결 업무가 핵심, 산학협력 생태계 활성화 병행</p>
+        <div class="task-list" id="taskListJsm"></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>연구원별 진행 프로그램 목록</h2>
+      <span class="note">프로그램별 1차년도 · 2차년도 진행 여부</span>
+    </div>
+    <div class="legend-row" style="margin-top:0; margin-bottom:16px; gap:10px;">
+      <span style="font-size:12px;color:var(--ink-muted);">● 해당 연도 진행 · – 미진행 · 2026.03 기준 1차/2차년도 구분 · 색상 강조 행 = 지표 연관성 ★★★(직접 연계)</span>
+    </div>
+    <div class="chart-grid">
+      <div class="program-card">
+        <div class="card-h3-row"><svg class="avatar sm"><use href="#avatar-male"></use></svg><h3>주상하</h3></div>
+        <p class="sub">산학협력 생태계 활성화 중심 프로그램</p>
+        <table class="data-table prog-table">
+          <thead>
+            <tr><th style="width:44%;">프로그램명</th><th style="text-align:center;width:64px;">1차년도</th><th style="text-align:center;width:64px;">2차년도</th><th style="text-align:center;width:120px;">핵심·자율지표 연관성</th></tr>
+          </thead>
+          <tbody id="progTableJsh"></tbody>
+        </table>
+      </div>
+      <div class="program-card">
+        <div class="card-h3-row"><svg class="avatar sm"><use href="#avatar-female"></use></svg><h3>주수민</h3></div>
+        <p class="sub">지역 연계 · 지역 현안 문제 해결 중심 프로그램</p>
+        <table class="data-table prog-table">
+          <thead>
+            <tr><th style="width:44%;">프로그램명</th><th style="text-align:center;width:64px;">1차년도</th><th style="text-align:center;width:64px;">2차년도</th><th style="text-align:center;width:120px;">핵심·자율지표 연관성</th></tr>
+          </thead>
+          <tbody id="progTableJsm"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>지출결의 업무 비교</h2>
+      <span class="note">2026.03 – 2026.09 신청 기준</span>
+    </div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <h3>지출 건수 비교</h3>
+        <p class="sub">건수는 두 사람이 비슷한 수준</p>
+        <div class="chart-box" style="height:180px;">
+          <canvas id="expenseChart" role="img" aria-label="지출결의 건수 비교 막대그래프: 주상하 21건, 주수민 23건">주상하 21건, 주수민 23건</canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>지출 금액 비교</h3>
+        <p class="sub">건당 평균 금액은 주상하가 더 큼</p>
+        <table class="data-table">
+          <thead>
+            <tr><th>연구원</th><th>건수</th><th>총 지출금액</th><th>건당 평균</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name-cell"><svg class="avatar sm"><use href="#avatar-male"></use></svg>주상하</td>
+              <td>21건</td>
+              <td class="strong">4,887만원</td>
+              <td>232만원</td>
+            </tr>
+            <tr>
+              <td class="name-cell"><svg class="avatar sm"><use href="#avatar-female"></use></svg>주수민</td>
+              <td>23건</td>
+              <td class="strong">3,159만원</td>
+              <td>137만원</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="chart-card full" style="margin-top:20px;">
+      <h3>과제별 지출 분포</h3>
+      <p class="sub">문서·공문 대장과 동일하게 지역 현안 문제 해결 · 산학협력 생태계 활성화 과제에 집중</p>
+      <div class="legend-row" style="margin-top:0; margin-bottom:8px; gap:16px;">
+        <span class="legend-chip" style="font-size:12px;"><span class="dot" style="background:#9CC7AE;"></span>산학협력 생태계 활성화</span>
+        <span class="legend-chip" style="font-size:12px;"><span class="dot" style="background:#0B4D33;"></span>지역 현안 문제 해결</span>
+      </div>
+      <div class="chart-box" style="height:180px;">
+        <canvas id="expenseTaskChart" role="img" aria-label="지출결의 과제별 금액 비중: 주상하 산학협력 생태계 활성화 4887만원, 주수민 산학협력 생태계 활성화 452만원, 지역 현안 문제 해결 2707만원">주상하 산학협력4887만, 주수민 산학협력452만/지역현안2707만</canvas>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>생산 · 접수 비교</h2>
+      <span class="note">등록구분 기준 · ANCHOR/RISE 문서대장 + 지산학협력본부 공문 통합</span>
+    </div>
+    <div class="chart-card">
+      <div class="chart-box" style="height:200px;">
+        <canvas id="prodChart" role="img" aria-label="생산 접수 비교 막대그래프: 주수민 생산 159건 접수 54건, 주상하 생산 128건 접수 42건">주수민 생산159/접수54, 주상하 생산128/접수42</canvas>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>공문 발송 · 내부결재 비교</h2>
+      <span class="note">지산학협력본부 공문 대장 기준(수신 필드)</span>
+    </div>
+    <div class="chart-card">
+      <p class="sub" style="margin-bottom:16px;">두 사람 모두 절반 이상이 실제 대내외 발송(공문), 나머지는 내부결재로 종결</p>
+      <div class="chart-box" style="height:180px;">
+        <canvas id="dispatchChart" role="img" aria-label="공문 발송과 내부결재 비교 막대그래프: 주수민 발송 76건 내부결재 55건, 주상하 발송 58건 내부결재 35건">주수민 발송76/내부결재55, 주상하 발송58/내부결재35</canvas>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>부서별 문서 건수 현황</h2>
+      <span class="note">문서상 기안부서 표기 기준 · 두 사람 모두 소속은 ANCHOR사업운영센터</span>
+    </div>
+    <div class="chart-card full">
+      <table class="data-table budget-table">
+        <thead>
+          <tr>
+            <th style="width:20%;text-align:left;">연구원</th>
+            <th>지산학협력본부</th>
+            <th>RISE사업운영센터</th>
+            <th>ANCHOR사업운영센터</th>
+            <th>합계</th>
+          </tr>
+        </thead>
+        <tbody id="deptTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>월별 업무 세부 현황</h2>
+      <span class="note">문서기안(생산)·문서접수·지출결의 건수 · 2026.03 기준 1차/2차년도 구분</span>
+    </div>
+    <div class="legend-row" style="margin-top:0; margin-bottom:16px; gap:16px;">
+      <span class="legend-chip" style="font-size:12px;"><span class="dot" style="background:#0B4D33;"></span>문서기안(생산)</span>
+      <span class="legend-chip" style="font-size:12px;"><span class="dot" style="background:#5AA06E;"></span>문서접수</span>
+      <span class="legend-chip" style="font-size:12px;"><span class="dot" style="background:#B7D08A;"></span>지출결의</span>
+    </div>
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="card-h3-row"><svg class="avatar sm"><use href="#avatar-male"></use></svg><h3>주상하</h3></div>
+        <p class="sub">1차년도(~'26.02)</p>
+        <div class="chart-box" style="height:170px;">
+          <canvas id="monthJsh1" role="img" aria-label="주상하 1차년도 월별 문서기안, 문서접수, 지출결의 건수 스택 막대그래프">주상하 1차년도 월별 세부 현황</canvas>
+        </div>
+        <p class="sub" style="margin-top:16px;">2차년도('26.03~)</p>
+        <div class="chart-box" style="height:170px;">
+          <canvas id="monthJsh2" role="img" aria-label="주상하 2차년도 월별 문서기안, 문서접수, 지출결의 건수 스택 막대그래프">주상하 2차년도 월별 세부 현황</canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="card-h3-row"><svg class="avatar sm"><use href="#avatar-female"></use></svg><h3>주수민</h3></div>
+        <p class="sub">1차년도(~'26.02)</p>
+        <div class="chart-box" style="height:170px;">
+          <canvas id="monthJsm1" role="img" aria-label="주수민 1차년도 월별 문서기안, 문서접수, 지출결의 건수 스택 막대그래프">주수민 1차년도 월별 세부 현황</canvas>
+        </div>
+        <p class="sub" style="margin-top:16px;">2차년도('26.03~)</p>
+        <div class="chart-box" style="height:170px;">
+          <canvas id="monthJsm2" role="img" aria-label="주수민 2차년도 월별 문서기안, 문서접수, 지출결의 건수 스택 막대그래프">주수민 2차년도 월별 세부 현황</canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>비교 요약</h2>
+      <span class="note">관리자 전용</span>
+    </div>
+    <div id="summaryGate" class="gate-box">
+      <div class="gate-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="vertical-align:middle;">
+          <rect x="5" y="11" width="14" height="9" rx="2"/>
+          <path d="M8 11V7a4 4 0 0 1 8 0v4"/>
+        </svg>
+      </div>
+      <p>비교 요약은 관리자 암호를 입력해야 열람할 수 있습니다.</p>
+      <div class="gate-row">
+        <input type="password" id="summaryPw" placeholder="암호 입력" onkeydown="if(event.key==='Enter')checkSummaryPw()">
+        <button onclick="checkSummaryPw()">확인</button>
+      </div>
+      <p class="gate-error" id="summaryPwError"></p>
+    </div>
+    <div class="insight-box" id="summaryContent" style="display:none;">
+      <ul>
+        <li><b>과제 집중 방향이 정반대.</b> 통합 기준 주수민은 지역 현안 문제 해결 업무(119건, 50%)에, 주상하는 산학협력 생태계 활성화 업무(131건, 69%)에 각각 집중되어 있음. 지산학협력본부 공문을 더해도 두 사람의 핵심 업무 방향은 그대로 유지됨.</li>
+        <li><b>지출결의도 동일한 패턴을 재확인.</b> 주수민 지출결의 23건 중 18건(78%, 2,707만원)이 지역 현안 문제 해결 업무, 주상하는 21건 전부(100%, 4,887만원)가 산학협력 생태계 활성화 업무로 문서·공문 대장의 과제 편중과 정확히 일치함.</li>
+        <li><b>지산학협력본부 공문 비중이 매우 큼.</b> 통합 문서량 기준 주수민은 지산학협력본부 공문이 186건(전체의 79%), 주상하는 135건(79%)으로 두 사람 모두 실제 업무의 대부분이 지산학협력본부 공문 처리에서 발생함.</li>
+        <li><b>공문 중 발송 비중은 비슷.</b> 지산학협력본부 공문 중 실제 대내외로 발송된 건은 주수민 76건(58%), 주상하 58건(62%)이며, 나머지는 내부결재로 종결됨.</li>
+        <li><b>건당 지출 규모는 주상하가 더 큼.</b> 지출결의 총액은 주상하(4,887만원)가 주수민(3,159만원)보다 크지만 건수는 비슷해(21건 vs 23건), 건당 평균 금액이 주상하가 약 2.1배 높음(232만원 vs 137만원) — 캡스톤 경진대회·항공 대행수수료 등 고액 지출 건이 영향.</li>
+        <li><b>생산·접수 비율이 반대 경향.</b> 접수 기록이 있는 ANCHOR/RISE 문서대장만 보면 주수민은 접수(66%)가 생산(34%)보다 많고, 주상하는 생산(45%)·접수(55%) 비율이 상대적으로 균형에 가까움. 지산학협력본부 공문은 전량 생산/발송으로 등록되어 있음.</li>
+        <li><b>같은 소속, 다른 전문 영역.</b> 둘 다 ANCHOR사업운영센터 연구원이지만, 주수민은 광진 반함축제·공동 리빙랩·원헬스 지역연계 등 지역사회 프로그램을, 주상하는 캡스톤디자인 경진대회·ICC 산학연 공동기술개발과제·재직자 교육 등 산학협력 프로그램을 각각 전담하는 형태로 역할이 나뉘어 있음.</li>
+        <li><b>2차년도 진입 후 지출결의 업무가 새로 등장.</b> 월별 세부 현황을 보면 1차년도(~'26.02)에는 두 사람 모두 지출결의가 0건이었으나, 2차년도('26.03~)부터 매달 지출결의가 발생하기 시작해 업무 성격이 문서 중심에서 문서+예산 집행 중심으로 확장됨.</li>
+        <li><b>총 업무량은 주수민이 다소 많음.</b> 문서대장(ANCHOR/RISE)+지산학협력본부 공문+지출결의를 모두 합산하면 주수민 236건, 주상하 191건으로, 지산학협력본부 공문이 더해지며 격차가 이전(105 vs 98)보다 커짐.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    출처: 대장출력 문서 원장(S128402) 주수민 82건·주상하 77건, 지산학협력본부 공문 원장(S128404) 주수민 131건·주상하 93건, 지출결의 원장 주수민 23건·주상하 21건, 핵심·자율지표 현황(2026.8.31 기준)은 KONKUK ANCHOR 사업단 대시보드 참고
+  </footer>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const COLOR_JSM = '#0B4D33';
+const COLOR_JSH = '#2E8B57';
+const COLOR_JSM_SOFT = '#9CC7AE';
+const COLOR_JSH_SOFT = '#BFE0CB';
+const GRID = '#DCE6DE';
+const MUTED = '#7E8C82';
+
+Chart.defaults.font.family = "'Pretendard', sans-serif";
+Chart.defaults.color = MUTED;
+
+const KPI_T4 = [
+  { g:'핵심', name:'지식재산권 증가율', target:'23.6%', current:'14.7% (출원 21건)', rate:62, finalv:'하반기 목표 21.0%(출원30건)<br>최종 35.7/23.8%(출원51건)' },
+  { g:'핵심', name:'산학협력 인재양성', target:'1,300명', current:'1,154명 (88.8%)', rate:89, finalv:'하반기 목표 1,604명<br>최종 2,758명(200%)' },
+  { g:'자율', name:'기술이전 수입료', target:'520,000천원', current:'342,297천원 (65.8%)', rate:66, finalv:'하반기 목표 220,000천원<br>최종 540,000천원(104%)' },
+  { g:'자율', name:'기술애로 컨설팅', target:'135건', current:'30건', rate:22, finalv:'하반기 목표 135건<br>최종 135건(100%)' },
+  { g:'자율', name:'교육과정 운영', target:'20건', current:'15건 (75%)', rate:75, finalv:'하반기 목표 20건<br>최종 35건(175%)' },
+];
+
+const KPI_T11 = [
+  { g:'핵심', name:'지역현안해결 프로젝트 목표달성도', target:'85% (13건)', current:'92.3% (12건)', rate:92, finalv:'하반기 목표 46.2%(8건)<br>최종 20건(153%)' },
+  { g:'핵심', name:'프로젝트 수혜자 만족도', target:'85%', current:'94%', rate:100, finalv:'하반기 목표 95%<br>최종 95%' },
+  { g:'자율', name:'지역 혁신인재 교육참여자 수', target:'70명', current:'71명', rate:100, finalv:'하반기 목표 50명<br>최종 121명(172%)' },
+  { g:'자율', name:'지역문제해결 공동연구과제 수', target:'6건', current:'– (0건)', rate:0, finalv:'하반기 목표 6건<br>최종 6건(100%)' },
+  { g:'자율', name:'교육참여자의 창업 건수', target:'5건', current:'2건', rate:40, finalv:'하반기 목표 3건<br>최종 5건(100%)' },
+];
+
+function renderKpiTable(elId, rows, color){
+  const el = document.getElementById(elId);
+  el.innerHTML = rows.map(r => `
+    <tr>
+      <td><span class="kpi-badge ${r.g==='핵심'?'core':'auto'}">${r.g}</span></td>
+      <td class="strong" style="color:var(--ink);"><div class="kpi-name-wrap">${r.name}</div></td>
+      <td>${r.target}</td>
+      <td>${r.current}</td>
+      <td>
+        <div class="rate-cell">
+          <div class="rate-bar-track"><div class="rate-bar-fill" style="width:${Math.min(r.rate,100)}%;background:${r.rate>=100?color:color};opacity:${r.rate>=100?1:0.6};"></div></div>
+          <span class="rate-pct" style="color:${r.rate>=100?color:'var(--ink-sub)'};">${r.rate}%</span>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+renderKpiTable('kpiTableT4', KPI_T4, COLOR_JSH);
+renderKpiTable('kpiTableT11', KPI_T11, COLOR_JSM);
+
+const BUDGET_ROWS = [
+  { item:'인건비', a:'290,000,000', b:'-', rate:'-', c:'-', d:'-', bal:'290,000,000' },
+  { item:'장학금', a:'68,240,000', b:'-', rate:'-', c:'-', d:'-', bal:'70,000,000' },
+  { item:'교육·연구 프로그램개발·운영비', a:'282,456,000', b:'53,492,970', rate:'18.9%', c:'53,384,970', d:'108,000', bal:'228,963,030' },
+  { item:'교육·연구 환경개선비', a:'58,000,000', b:'-', rate:'-', c:'-', d:'-', bal:'58,000,000' },
+  { item:'실험·실습장비 및 기자재 구입·운영비', a:'287,273,700', b:'3,031,510', rate:'1.1%', c:'3,031,510', d:'-', bal:'284,242,190' },
+  { item:'지역 연계·협업지원비', a:'13,000,000', b:'433,900', rate:'3.3%', c:'433,900', d:'-', bal:'12,566,100' },
+  { item:'기업 지원·협력활동비', a:'150,000,000', b:'2,419,400', rate:'1.6%', c:'2,419,400', d:'-', bal:'147,580,600' },
+  { item:'성과 활용·확산지원비', a:'73,030,300', b:'26,297,000', rate:'36.0%', c:'24,812,800', d:'1,484,200', bal:'46,733,300' },
+  { item:'그 밖의 사업운영 경비', a:'39,000,000', b:'4,981,845', rate:'12.8%', c:'4,432,545', d:'549,300', bal:'34,018,155' },
+  { item:'간접비', a:'39,000,000', b:'-', rate:'-', c:'-', d:'-', bal:'39,000,000' },
+];
+const BUDGET_TOTAL = { item:'총 합계', a:'1,300,000,000', b:'90,656,625', rate:'7.0%', c:'88,515,125', d:'2,141,500', bal:'1,211,103,375' };
+
+function renderBudgetTable(elId, rows, total){
+  const el = document.getElementById(elId);
+  const cell = v => v === '-' ? '<span class="dash">-</span>' : v;
+  el.innerHTML = rows.map(r => `
+    <tr>
+      <td><div class="budget-item-wrap">${r.item}</div></td>
+      <td>${cell(r.a)}</td>
+      <td>${cell(r.b)}</td>
+      <td>${cell(r.rate)}</td>
+      <td>${cell(r.c)}</td>
+      <td>${cell(r.d)}</td>
+      <td>${cell(r.bal)}</td>
+    </tr>`).join('') + `
+    <tr class="total">
+      <td><div class="budget-item-wrap">${total.item}</div></td>
+      <td>${total.a}</td>
+      <td>${total.b}</td>
+      <td>${total.rate}</td>
+      <td>${total.c}</td>
+      <td>${total.d}</td>
+      <td>${total.bal}</td>
+    </tr>`;
+}
+
+renderBudgetTable('budgetTable', BUDGET_ROWS, BUDGET_TOTAL);
+
+function renderTaskList(elId, items, color){
+  const el = document.getElementById(elId);
+  const max = Math.max(...items.map(i => i.value));
+  el.innerHTML = items.map(i => `
+    <div class="task-row">
+      <div class="task-label">${i.label}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${Math.round(i.value / max * 100)}%; background:${color};"></div></div>
+      <div class="task-val">${i.value}</div>
+    </div>
+  `).join('');
+}
+
+renderTaskList('taskListJsm', [
+  { label: '지역 현안 문제 해결', value: 119 },
+  { label: '산학협력 생태계 활성화', value: 52 },
+  { label: '기타/조직', value: 26 },
+  { label: '복수과제(4·11)', value: 16 }
+], COLOR_JSM);
+
+renderTaskList('taskListJsh', [
+  { label: '산학협력 생태계 활성화', value: 131 },
+  { label: '기타/조직', value: 32 },
+  { label: '복수과제(4·7)', value: 7 }
+], COLOR_JSH);
+
+const programsJsm = [
+  { name: '창업 사업화 후속지원 프로그램', date: "'25.08–'26.08", count: '14건', period: 'p12', desc: '특허 출원, 법인 설립, 상표 등록 지원', stars: 3, kpi: '자율③ 교육참여자의 창업 건수' },
+  { name: '지역문제해결 공동연구 프로젝트', date: "'25.09–'26.08", count: '41건', period: 'p12', desc: '회의비·재료비·전문가활용비 등 항목별 비용 지급(1차년도 개시)', stars: 3, kpi: '자율② 지역문제해결 공동연구과제 수' },
+  { name: '광진구-KU 공동 리빙랩 프로젝트', date: "'25.09–'26.09", count: '21건', period: 'p12', desc: '정책제안 경진대회 운영·시상, 수료증 발급, 운영회의, 장소 협조', stars: 3, kpi: '핵심① 지역현안해결 프로젝트 목표달성도' },
+  { name: 'ICC 산학연 공동기술개발과제 성과발표회', date: "'25.09–'26.02", count: '5건', period: 'p1', desc: '성과발표회 참여 및 관련 회의', stars: 2, kpi: '핵심① 지역현안해결 프로젝트(간접)' },
+  { name: '반려동물 전문 자격증반 프로그램', date: "'25.10–'26.09", count: '19건', period: 'p12', desc: '프로그램 운영, 결과보고, 수료증 발급', stars: 3, kpi: '자율① 지역 혁신인재 교육참여자 수' },
+  { name: 'KU-RISE인재(건국RISE인재) 지원 프로그램', date: "'25.11–'26.07", count: '26건', period: 'p12', desc: '월별 인재 지원금 지급, RA 운영', stars: 2, kpi: '자율① 지역 혁신인재 교육참여자 수(간접)' },
+  { name: 'KU 원헬스 지역연계 공동연구 지원사업', date: "'25.11–'26.08", count: '18건', period: 'p12', desc: '지역연계 리빙랩 실증(솔루션) 모델 개발, 원헬스 생태계 구축', stars: 3, kpi: '자율② 지역문제해결 공동연구과제 수' },
+  { name: '광진구청 지역혁신 협력체계 구축', date: "'26.01–'26.06", count: '5건', period: 'p12', desc: '지역혁신을 위한 KU RISE-광진구청 협력 회의', stars: 2, kpi: '핵심① 지역현안해결 프로젝트(협력기반)' },
+  { name: '중장기 발전계획 대응(KONKUK WAVE 2031)', date: "'26.04", count: '2건', period: 'p2', desc: '2차연도 추진계획서 제출 요청 회신', stars: 1, kpi: '행정 대응(지표 미연계)' },
+  { name: '광진 반함축제', date: "'26.06–'26.09", count: '7건', period: 'p2', desc: '사전 현장점검, 참여부스 운영, 유관기관 안전대책 회의, 협력 프로그램 운영 협의', stars: 3, kpi: '핵심① 지역현안해결 프로젝트 목표달성도' },
+  { name: '동물매개재활사 강사양성 멘토링', date: "'26.07", count: '1건', period: 'p2', desc: '현장연계 강사양성 멘토링 계획', stars: 2, kpi: '자율① 지역 혁신인재 교육참여자 수' }
+];
+
+const programsJsh = [
+  { name: '산학연 공동기술개발과제(ICC 인프라 지원)', date: "'25.10–'26.02", count: '52건', period: 'p1', desc: '바이오헬스케어·모빌리티ICT·에코스마트시티 분야 재료·장비 지원, 기술이전형/일반형 예산 집행(1차년도 개시)', stars: 3, kpi: '핵심① 지식재산권 증가율' },
+  { name: '대학-지역-글로벌 확산형 창업교육 프로그램', date: "'25.10–'25.12", count: '3건', period: 'p1', desc: '창업교육 프로그램 후속지원 결과보고', stars: 2, kpi: '자율③ 교육과정 운영(간접)' },
+  { name: 'KU-RISE 자문위원회 운영', date: "'25.11–'25.12", count: '5건', period: 'p1', desc: '자문위원회 개최 결과보고 및 운영 협의', stars: 1, kpi: '행정 대응(지표 미연계)' },
+  { name: '주문식 교육과정(지산학혁신 연구역량 강화)', date: "'25.11–'26.07", count: '17건', period: 'p12', desc: '파일럿 특강 운영, 결과보고 및 비용 집행', stars: 3, kpi: '자율③ 교육과정 운영' },
+  { name: '건국대 ANCHOR 기술애로 컨설팅 지원사업', date: "'25.11–'26.08", count: '7건', period: 'p12', desc: '기업 기술애로사항 컨설팅 전문가 협의체 운영', stars: 3, kpi: '자율② 기술애로 컨설팅' },
+  { name: 'RISE AI-LivingLab Challenge', date: "'25.12", count: '1건', period: 'p1', desc: '경진대회 발표평가 장소 협조', stars: 1, kpi: '과제간 협업(지표 미연계)' },
+  { name: '엑소좀 심포지엄', date: "'25.12", count: '2건', period: 'p1', desc: '심포지엄 운영 결과보고', stars: 2, kpi: '핵심① 지식재산권 증가율(간접)' },
+  { name: 'KU One-Health 산학연계 재직자 역량강화 프로그램', date: "'26.01–'26.07", count: '15건', period: 'p12', desc: '재직자 교육 운영, 성과 공유 및 확대 추진', stars: 3, kpi: '자율③ 교육과정 운영' },
+  { name: 'AI기반 창의융합 캡스톤디자인 경진대회', date: "'26.03–'26.08", count: '10건', period: 'p2', desc: '경진대회 운영·결과보고, 발표평가 장소 협조(2차년도 개시)', stars: 2, kpi: '핵심② 산학협력 인재양성(간접)' },
+  { name: 'KU PBL 프로젝트 교과목 지원사업', date: "'26.05–'26.08", count: '7건', period: 'p2', desc: '학기별 교과목 지원 추진계획 및 결과보고', stars: 2, kpi: '자율③ 교육과정 운영' },
+  { name: 'KU One-Health Symposium', date: "'26.05–'26.09", count: '5건', period: 'p2', desc: '심포지엄 추진계획 수립, 결과보고, 배너·현수막 제작', stars: 2, kpi: '핵심① 지식재산권 증가율(간접)' },
+  { name: '산학협력 생태계 활성화 상생협력 네트워크', date: "'26.07", count: '3건', period: 'p2', desc: 'ICC 산학협력 지원사업 설명회 및 네트워크 추진', stars: 3, kpi: '자율① 기술이전 수입료' },
+  { name: 'ANCHOR AI 기초·심화 교육 커리큘럼 기획', date: "'26.09", count: '1건', period: 'p2', desc: 'AI 교육 커리큘럼 기획 및 공동 프로그램 추진 회의', stars: 2, kpi: '자율③ 교육과정 운영' }
+];
+
+function starDisplay(n, color){
+  const full = '★'.repeat(n);
+  const empty = '☆'.repeat(3 - n);
+  return `<span class="stars" style="color:${color};">${full}<span style="color:var(--line);">${empty}</span></span>`;
+}
+
+function renderProgramTable(elId, items, color, softColor){
+  const el = document.getElementById(elId);
+  el.innerHTML = items.map(i => {
+    const p1on = (i.period === 'p1' || i.period === 'p12');
+    const p2on = (i.period === 'p2' || i.period === 'p12');
+    const hi = i.stars === 3;
+    return `
+    <tr class="${hi ? 'highlight' : ''}" style="${hi ? `--hl-bg:${softColor}33;` : ''}">
+      <td class="name-cell">
+        <div class="prog-row-name">
+          <span class="prog-name">${i.name}</span>
+          <span class="prog-date">${i.date} · ${i.count}</span>
+        </div>
+      </td>
+      <td><span class="mark ${p1on ? '' : 'off'}" style="${p1on ? `color:${color};` : ''}">${p1on ? '●' : '–'}</span></td>
+      <td><span class="mark ${p2on ? '' : 'off'}" style="${p2on ? `color:${color};` : ''}">${p2on ? '●' : '–'}</span></td>
+      <td>
+        <div class="prog-row-kpi" style="align-items:center;">
+          <div style="text-align:center;">${starDisplay(i.stars, color)}</div>
+          <div class="kpi-final" style="text-align:center;">${i.kpi}</div>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+renderProgramTable('progTableJsm', programsJsm, COLOR_JSM, COLOR_JSM_SOFT);
+renderProgramTable('progTableJsh', programsJsh, COLOR_JSH, COLOR_JSH_SOFT);
+
+new Chart(document.getElementById('expenseChart'), {
+  type: 'bar',
+  data: {
+    labels: ['주상하', '주수민'],
+    datasets: [
+      { data: [21, 23], backgroundColor: [COLOR_JSH, COLOR_JSM], borderRadius: 4, maxBarThickness: 40 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, grid: { color: GRID }, ticks: { color: MUTED } },
+      x: { grid: { display: false }, ticks: { color: MUTED } }
+    }
+  }
+});
+
+new Chart(document.getElementById('expenseTaskChart'), {
+  type: 'bar',
+  data: {
+    labels: ['주상하', '주수민'],
+    datasets: [
+      { label: '산학협력 생태계 활성화', data: [4887, 452], backgroundColor: COLOR_JSM_SOFT, borderRadius: 4, maxBarThickness: 40, stack: 's' },
+      { label: '지역 현안 문제 해결', data: [0, 2707], backgroundColor: COLOR_JSM, borderRadius: 4, maxBarThickness: 40, stack: 's' }
+    ]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { stacked: true, beginAtZero: true, grid: { color: GRID }, ticks: { color: MUTED, callback: (v) => v + '만원' } },
+      y: { stacked: true, grid: { display: false }, ticks: { color: MUTED } }
+    }
+  }
+});
+
+new Chart(document.getElementById('prodChart'), {
+  type: 'bar',
+  data: {
+    labels: ['생산/발송', '접수'],
+    datasets: [
+      { label: '주상하', data: [128, 42], backgroundColor: COLOR_JSH, borderRadius: 4, maxBarThickness: 36 },
+      { label: '주수민', data: [159, 54], backgroundColor: COLOR_JSM, borderRadius: 4, maxBarThickness: 36 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, grid: { color: GRID }, ticks: { color: MUTED } },
+      x: { grid: { display: false }, ticks: { color: MUTED } }
+    }
+  }
+});
+
+new Chart(document.getElementById('dispatchChart'), {
+  type: 'bar',
+  data: {
+    labels: ['공문 발송', '내부결재 종결'],
+    datasets: [
+      { label: '주상하', data: [58, 35], backgroundColor: COLOR_JSH, borderRadius: 4, maxBarThickness: 36 },
+      { label: '주수민', data: [76, 55], backgroundColor: COLOR_JSM, borderRadius: 4, maxBarThickness: 36 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, grid: { color: GRID }, ticks: { color: MUTED } },
+      x: { grid: { display: false }, ticks: { color: MUTED } }
+    }
+  }
+});
+
+function renderDeptTable(elId){
+  const rows = [
+    { name:'주상하', avatar:'avatar-male', color:COLOR_JSH, vals:[135,24,11] },
+    { name:'주수민', avatar:'avatar-female', color:COLOR_JSM, vals:[186,18,9] }
+  ];
+  const el = document.getElementById(elId);
+  el.innerHTML = rows.map(r => {
+    const total = r.vals.reduce((a,b)=>a+b,0);
+    return `
+    <tr>
+      <td style="text-align:left;"><span class="name-cell"><svg class="avatar sm"><use href="#${r.avatar}"></use></svg><b style="color:var(--ink);">${r.name}</b></span></td>
+      <td style="color:${r.color};font-weight:700;">${r.vals[0]}건</td>
+      <td>${r.vals[1]}건</td>
+      <td>${r.vals[2]}건</td>
+      <td style="font-weight:700;color:var(--ink);">${total}건</td>
+    </tr>`;
+  }).join('');
+}
+renderDeptTable('deptTable');
+
+const CAT_PROD = '#0B4D33';
+const CAT_RECV = '#5AA06E';
+const CAT_EXP = '#B7D08A';
+
+const months1 = ['25.08','25.09','25.10','25.11','25.12','26.01','26.02'];
+const months2 = ['26.03','26.04','26.05','26.06','26.07','26.08','26.09'];
+
+function stackedMonthChart(canvasId, labels, prod, recv, exp){
+  new Chart(document.getElementById(canvasId), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        { label: '문서기안(생산)', data: prod, backgroundColor: CAT_PROD, stack: 's', borderRadius: 3, maxBarThickness: 28 },
+        { label: '문서접수', data: recv, backgroundColor: CAT_RECV, stack: 's', borderRadius: 3, maxBarThickness: 28 },
+        { label: '지출결의', data: exp, backgroundColor: CAT_EXP, stack: 's', borderRadius: 3, maxBarThickness: 28 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { stacked: true, beginAtZero: true, grid: { color: GRID }, ticks: { color: MUTED } },
+        x: { stacked: true, grid: { display: false }, ticks: { color: MUTED, autoSkip: false } }
+      }
+    }
+  });
+}
+
+stackedMonthChart('monthJsh1', months1,
+  [0,0,2,11,16,12,24],
+  [0,0,0,5,7,10,20],
+  [0,0,0,0,0,0,0]
+);
+stackedMonthChart('monthJsh2', months2,
+  [3,11,9,12,14,8,6],
+  [0,0,0,0,0,0,0],
+  [0,3,2,7,4,3,2]
+);
+stackedMonthChart('monthJsm1', months1,
+  [3,13,9,20,21,21,32],
+  [0,0,1,6,10,12,25],
+  [0,0,0,0,0,0,0]
+);
+stackedMonthChart('monthJsm2', months2,
+  [1,7,2,8,10,8,4],
+  [0,0,0,0,0,0,0],
+  [0,0,2,3,11,4,3]
+);
+
+function checkSummaryPw(){
+  const input = document.getElementById('summaryPw');
+  const error = document.getElementById('summaryPwError');
+  if (input.value === 'achor***') {
+    document.getElementById('summaryGate').style.display = 'none';
+    document.getElementById('summaryContent').style.display = 'block';
+  } else {
+    error.textContent = '암호가 올바르지 않습니다.';
+    input.value = '';
+    input.focus();
+  }
+}
+</script>
+</body>
+</html>
